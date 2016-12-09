@@ -27,9 +27,14 @@
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="ar_files" />
       <ComponentGroupRef Id="nl_nl_files" />
+      <ComponentGroupRef Id="da_dk_files" />
     </Feature>
 
-    <Feature Id="GfNavisuite_VisualStudio12Toolbox" Title="Register controls in Visual Studio 2013" Level="1" Display="expand" AllowAdvertise="no" InstallDefault="local" Absent="allow">
+      <Feature Id="GfNavisuite_VisualStudio14Toolbox" Title="Register controls in Visual Studio 2015" Level="1" Display="expand" AllowAdvertise="no" InstallDefault="local" Absent="allow">
+          <ComponentRef Id="GfNavisuite_VisualStudio14Toolbox" />
+      </Feature>
+
+      <Feature Id="GfNavisuite_VisualStudio12Toolbox" Title="Register controls in Visual Studio 2013" Level="1" Display="expand" AllowAdvertise="no" InstallDefault="local" Absent="allow">
       <ComponentRef Id="GfNavisuite_VisualStudio12Toolbox" />
     </Feature>
 
@@ -48,6 +53,7 @@
         <Directory Id="INSTALLFOLDER" Name="Guifreaks.Installer">
           <Directory Id="ar" Name="ar" />
           <Directory Id="nl_nl" Name="nl-nl" />
+          <Directory Id="da_dk" Name="da-dk" />
         </Directory>
       </Directory>
     </Directory>
@@ -92,20 +98,38 @@
       </Component>
     </ComponentGroup>
   </Fragment>
-  <Fragment>
+    <Fragment>
+        <ComponentGroup Id="da_dk_files" Directory="da_dk">
+            <Component Id="da_dk_Guifreaks.Navisuite.resources.dll" Guid="D17D1D7E-8879-463E-82C6-F32A86DA3DFA">
+                <File Id="da_dk_Guifreaks.Navisuite.resources.dll" Name="Guifreaks.Navisuite.resources.dll" Source="$(var.Guifreaks.Design_TargetDir)da-dk\Guifreaks.Navisuite.resources.dll" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
     <ComponentGroup Id="registry" Directory="INSTALLFOLDER">
-      <!-- Register the control with the Toolbox Controls Installer Package for Visual Studio 2013 (Standard edition and higher) -->
-      <Component Id="GfNavisuite_VisualStudio12Toolbox" Guid="4849b2d9-633e-44d2-a074-9cd2428ee35b">
-        <RegistryKey Root="HKLM" Key="Software\Microsoft\VisualStudio\12.0\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
-          <RegistryValue Type="string" Value="Guifreaks Navisuite" />
-        </RegistryKey>
+        <!-- Register the control with the Toolbox Controls Installer Package for Visual Studio 2015 (Standard edition and higher) -->
+        <Component Id="GfNavisuite_VisualStudio14Toolbox" Guid="4849b2d9-633e-44d2-a074-9cd2428ee35b">
+            <RegistryKey Root="HKLM" Key="Software\Microsoft\VisualStudio\14.0\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+                <RegistryValue Type="string" Value="Guifreaks Navisuite" />
+            </RegistryKey>
 
-        <RegistryKey Root="HKCU" Key="Software\Microsoft\VisualStudio\12.0_Config\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
-          <RegistryValue Type="string" Value="Guifreaks Navisuite" />
-        </RegistryKey>
-      </Component>
+            <RegistryKey Root="HKCU" Key="Software\Microsoft\VisualStudio\14.0_Config\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+                <RegistryValue Type="string" Value="Guifreaks Navisuite" />
+            </RegistryKey>
+        </Component>
 
-      <!-- Register the control with the Toolbox Controls Installer Package for Visual Studio 2012 (Standard edition and higher) -->
+        <!-- Register the control with the Toolbox Controls Installer Package for Visual Studio 2013 (Standard edition and higher) -->
+        <Component Id="GfNavisuite_VisualStudio12Toolbox" Guid="D763BF5A-02EE-472D-AD27-3716F6C01643">
+            <RegistryKey Root="HKLM" Key="Software\Microsoft\VisualStudio\12.0\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+                <RegistryValue Type="string" Value="Guifreaks Navisuite" />
+            </RegistryKey>
+
+            <RegistryKey Root="HKCU" Key="Software\Microsoft\VisualStudio\12.0_Config\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
+                <RegistryValue Type="string" Value="Guifreaks Navisuite" />
+            </RegistryKey>
+        </Component>
+
+        <!-- Register the control with the Toolbox Controls Installer Package for Visual Studio 2012 (Standard edition and higher) -->
       <Component Id="GfNavisuite_VisualStudio11Toolbox" Guid="070998e5-c9f0-4672-86e7-0903d8ae821a">
         <RegistryKey Root="HKLM" Key="Software\Microsoft\VisualStudio\11.0\ToolboxControlsInstaller\Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea" ForceDeleteOnUninstall="yes" ForceCreateOnInstall="yes">
           <RegistryValue Type="string" Value="Guifreaks Navisuite" />

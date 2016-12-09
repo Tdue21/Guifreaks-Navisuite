@@ -3,3 +3,8 @@
 ################################################################################
 
 /Bin/Guifreaks.NavisuiteDemo.vshost.exe.config
+/Bin/Guifreaks.NavisuiteDemo.vshost.exe.manifest
+/Src/Guifreaks.Common/Guifreaks.Common.csproj.DotSettings
+/Src/Guifreaks.Design/Guifreaks.Design.csproj.DotSettings
+/Src/Guifreaks.Navisuite/Guifreaks.Navisuite.csproj.DotSettings
+/Src/Guifreaks.NavisuiteDemo/Guifreaks.NavisuiteDemo.csproj.DotSettings
