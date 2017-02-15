@@ -53,10 +53,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Design\NaviBandDesigner.cs" />
-    <Compile Include="Design\NaviBarDesigner.cs" />
-    <Compile Include="Design\NaviBarToolboxItem.cs" />
-    <Compile Include="Design\NaviGroupDesigner.cs" />
+    <Compile Include="NaviBandDesigner.cs" />
+    <Compile Include="NaviBarDesigner.cs" />
+    <Compile Include="NaviGroupDesigner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

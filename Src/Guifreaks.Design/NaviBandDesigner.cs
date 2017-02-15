@@ -20,7 +20,28 @@
 // * THE SOFTWARE.
 // ********************************************************************
 
-using System.Reflection;
+using System.ComponentModel;
+using System.Windows.Forms.Design;
+using Guifreaks.Navisuite;
 
-[assembly: AssemblyTitle("Guifreaks.Design")]
-[assembly: AssemblyDescription("")]
+namespace Guifreaks.Design
+{
+    /// <summary>
+    /// Enables design time mode for the ClientArea of the Band
+    /// </summary>
+    public class NaviBandDesigner : ParentControlDesigner
+    {
+        NaviBand designingComponent;
+
+        public override void Initialize(IComponent component)
+        {
+            base.Initialize(component);
+            var band = component as NaviBand;
+            if (band != null)
+            {
+                designingComponent = band;
+                EnableDesignMode(designingComponent.ClientArea, "ClientArea");
+            }
+        }
+    }
+}
