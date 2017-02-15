@@ -1,89 +1,74 @@
-﻿#region License and Copyright
-/*
- 
-Copyright (c) Guifreaks - Jacob Mesu
-All rights reserved.
+﻿// *********************************************************************
+// * Copyright © Guifreaks - Jacob Mesu
+// *
+// * Permission is hereby granted, free of charge, to any person obtaining a copy
+// * of this software and associated documentation files (the "Software"), to deal
+// * in the Software without restriction, including without limitation the rights
+// * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// * copies of the Software, and to permit persons to whom the Software is
+// * furnished to do so, subject to the following conditions:
+// * 
+// * The above copyright notice and this permission notice shall be included in
+// * all copies or substantial portions of the Software.
+// * 
+// * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// * THE SOFTWARE.
+// ********************************************************************
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the Guifreaks nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-*/
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Design;
-using System.Collections;
-using System.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Windows.Forms;
 
 namespace Guifreaks.Common
 {
-   public class SmallImageIndexEditor : UITypeEditor
-   {
-      object instance;
+    public class SmallImageIndexEditor : UITypeEditor
+    {
+        private object _instance;
 
-      public override bool GetPaintValueSupported(
-         ITypeDescriptorContext context)
-      {
-         instance = context.Instance;
-         return true;
-      }
+        public override bool GetPaintValueSupported(ITypeDescriptorContext context)
+        {
+            _instance = context.Instance;
+            return true;
+        }
 
-      public override void PaintValue(PaintValueEventArgs pe)
-      {
-         Image image = null;
-         int imageIndex = 0;
+        public override void PaintValue(PaintValueEventArgs pe)
+        {
+            ImageList imageList = null;
+            PropertyDescriptor property;
+            Image image = null;
+            var imageIndex = 0;
 
-         if (!int.TryParse(pe.Value.ToString(), out imageIndex))
-            return;
+            if (!int.TryParse(pe.Value.ToString(), out imageIndex))
+            {
+                return;
+            }
 
-         ImageList imageList = null;
+            var propertyCollection = TypeDescriptor.GetProperties(_instance);
+            if ((property = propertyCollection.Find("SmallImages", false)) != null)
+            {
+                imageList = (ImageList) property.GetValue(_instance);
+            }
 
-         PropertyDescriptorCollection PropertyCollection
-                           = TypeDescriptor.GetProperties(instance);
+            if ((imageList != null) && (imageList.Images.Count > imageIndex) && (imageIndex >= 0))
+            {
+                image = imageList.Images[imageIndex];
+            }
 
-         PropertyDescriptor property;
-         if ((property = PropertyCollection.Find("SmallImages", false)) != null)
-            imageList = (ImageList)property.GetValue(instance);
-
-         if ((imageList != null) && (imageList.Images.Count > imageIndex) && (imageIndex >= 0))
-         {
-            image = imageList.Images[imageIndex];
-         }
-
-         if (imageIndex < 0 || image == null)
-         {
-            pe.Graphics.DrawLine(Pens.Black, pe.Bounds.X + 1, pe.Bounds.Y + 1,
-               pe.Bounds.Right - 1, pe.Bounds.Bottom - 1);
-            pe.Graphics.DrawLine(Pens.Black, pe.Bounds.Right - 1, pe.Bounds.Y + 1,
-               pe.Bounds.X + 1, pe.Bounds.Bottom - 1);
-         }
-         else
-         {
-            pe.Graphics.DrawImage(image, pe.Bounds);
-         }
-      }
-   }
+            if (imageIndex < 0 || image == null)
+            {
+                pe.Graphics.DrawLine(Pens.Black, pe.Bounds.X + 1, pe.Bounds.Y + 1, pe.Bounds.Right - 1, pe.Bounds.Bottom - 1);
+                pe.Graphics.DrawLine(Pens.Black, pe.Bounds.Right - 1, pe.Bounds.Y + 1, pe.Bounds.X + 1, pe.Bounds.Bottom - 1);
+            }
+            else
+            {
+                pe.Graphics.DrawImage(image, pe.Bounds);
+            }
+        }
+    }
 }

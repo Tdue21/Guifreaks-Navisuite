@@ -68,24 +68,14 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AnimationEventArgs.cs" />
-    <Compile Include="AnimationCache.cs" />
     <Compile Include="ControlState.cs" />
     <Compile Include="ExtDrawing.cs" />
     <Compile Include="InputState.cs" />
-    <Compile Include="ExtCollectionEventArgs.cs" />
-    <Compile Include="ExtCollection.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="LargeImageIndexConverter.cs" />
     <Compile Include="LargeImageIndexEditor.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="NaviControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NaviControl.Designer.cs">
-      <DependentUpon>NaviControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="PopupCancelEventArgs.cs" />
     <Compile Include="PopupClosedEventArgs.cs" />
     <Compile Include="PopupWindowHelper.cs" />
